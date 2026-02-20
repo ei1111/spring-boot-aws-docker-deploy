@@ -12,7 +12,7 @@ jobs:
       - name: SSH(원격 접속)로 EC2에 접속
         uses: appleboy/ssh-action@v1.0.3
         env:
-          APPLICATION_PROPERTOES: ${{ secrets.APPLICATION_PROPERTIES }}
+          APPLICATION_PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
