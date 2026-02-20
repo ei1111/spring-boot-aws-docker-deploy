@@ -11,13 +11,18 @@ jobs:
     steps:
       - name: SSH(원격 접속)로 EC2에 접속
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          APPLICATION_PROPERTOES: ${{ secrets.APPLICATION_PROPERTIES }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
+          envs: APPLICATION_PROPERTIES
           script_stop: true
           script: |
             cd /home/ubuntu/spring-boot-aws-docker-deploy
+            rm -rf src/main/resources/application.yml
+            echo "$APPLICATION_PROPERTIES" > src/main/resources/application.yml
             git pull origin main
             ./gradlew clean build
             sudo fuser -k -n tcp 8080 || true
