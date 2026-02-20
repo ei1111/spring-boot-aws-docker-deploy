@@ -22,6 +22,7 @@ jobs:
           script: |
             cd /home/ubuntu/spring-boot-aws-docker-deploy
             rm -rf src/main/resources/application.yml
+            mkdir -p src/main/resources
             echo "$APPLICATION_PROPERTIES" > src/main/resources/application.yml
             git pull origin main
             ./gradlew clean build
